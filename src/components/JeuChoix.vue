@@ -1,7 +1,10 @@
 <template>
-  <p class="phrase" ref="phrase1" @click="choisir(1)" :class="{choisi: choix===1, paschoisi: choix===2, jeu: choix===0}">{{ phrase1.phrase }} <span v-if="choix !== 0">({{ phrase1.vote }})</span></p>
-  <p class="phrase" ref="phrase2" @click="choisir(2)" :class="{choisi: choix===2, paschoisi: choix===1, jeu: choix===0}">{{ phrase2.phrase }} <span v-if="choix !== 0">({{ phrase2.vote }})</span></p>
-  <p v-if="choix !== 0"><span class="highlight">{{ stats }}%</span> des gens sont d'accord avec toi</p>
+  <h3>Choissez la phrase que vous préferrez</h3>
+  <div id="phrases">
+    <p class="phrase" ref="phrase1" @click="choisir(1)" :class="{choisi: choix===1, paschoisi: choix===2, jeu: choix===0}">{{ phrase1.phrase }} <span v-if="choix !== 0">({{ phrase1.vote }})</span></p>
+    <p class="phrase" ref="phrase2" @click="choisir(2)" :class="{choisi: choix===2, paschoisi: choix===1, jeu: choix===0}">{{ phrase2.phrase }} <span v-if="choix !== 0">({{ phrase2.vote }})</span></p>
+  </div>
+  <p v-if="choix !== 0"><span class="highlight">{{ stats }}%</span> des gens sont de votre avis !</p>
   <button @click="continuer()" v-if="choix !== 0">Continuer</button>
 </template>
 
@@ -35,6 +38,7 @@ export default {
   },
   methods: {
     async fetch() {
+      console.log('fetch')
       this.phrases = await (await fetch(url)).json()
     },
     genererPhrase1() {
@@ -47,30 +51,27 @@ export default {
         this.phrase2 = this.phrases.data[Math.floor(Math.random() * this.phrases.data.length)];
       } while(this.phrase1 === this.phrase2)
     },
+    async voter(phrase) {
+      phrase.vote+=1;
+      const requestOptions = {
+        method: "PATCH",
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify(phrase)
+      };
+      await fetch(`${url}${phrase.id}`,requestOptions);
+      await this.fetch();
+    },
     choisir(n) {
       if (this.choix === 0) {
         this.choix = n
-      }
-      let requestOptions;
-      switch (n) {
-        case 1:
-          this.phrase1.vote+=1;
-          requestOptions = {
-            method: "PATCH", // Méthode HTTP
-            headers: { 'Content-Type': 'application/json' }, // Type de contenu
-            body: JSON.stringify(this.phrase1) // Corps de la requête
-          };
-          fetch(`${url}${this.phrase1.id}`,requestOptions);
-          break;
-        case 2:
-          this.phrase2.vote+=1;
-          requestOptions = {
-            method: "PATCH", // Méthode HTTP
-            headers: { 'Content-Type': 'application/json' }, // Type de contenu
-            body: JSON.stringify(this.phrase2) // Corps de la requête
-          };
-          fetch(`${url}${this.phrase2.id}`,requestOptions);
-          break;
+        switch (n) {
+          case 1:
+            this.voter(this.phrase1)
+            break;
+          case 2:
+            this.voter(this.phrase2)
+            break;
+        }
       }
     },
     continuer() {
@@ -89,6 +90,14 @@ export default {
 </script>
 
 <style>
+h3 {
+  margin-top: 50px;
+  font-size:2em;
+}
+#phrases {
+  margin: 20px auto;
+  width: 50%;
+}
 .phrase {
   border: 2px solid #42b983;
   border-radius: 20px;
