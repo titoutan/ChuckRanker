@@ -1,6 +1,7 @@
 <template>
-    <h1>Bienvenue sur Chuck Ranker</h1>
-    <h2>Le classement des phrases de Chuck Norris</h2>
+  <h1>Bienvenue sur Chuck Ranker</h1>
+  <h2>Le classement des phrases de Chuck Norris</h2>
+  <img src="../assets/chuckn_approved.png" alt="Chuck Norris image">
 </template>
 
 <script>
@@ -14,6 +15,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+img {
+  width: 10%;
+}
 h1 {
   font-size:3em
 }
