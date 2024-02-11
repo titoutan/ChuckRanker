@@ -9,7 +9,7 @@
 </template>
 
 <script>
-const url = "https://chuckapi.alwaysdata.net/chuckapi/v2/"
+const url = "http://localhost/chuckapi/v2/"
 export default {
   name: 'JeuChoix',
   data() {
@@ -52,7 +52,7 @@ export default {
       } while(this.phrase1 === this.phrase2)
     },
     async voter(phrase) {
-      phrase.vote+=1;
+      phrase.vote = parseInt(phrase.vote==null? 0 : phrase.vote)+1;
       const requestOptions = {
         method: "PATCH",
         headers: { 'Content-Type': 'application/json' }, 
