@@ -1,5 +1,11 @@
 # chuck-ranker
 
+## Introduction
+
+Un client pour l'api des phrases de chuckNorris <a href="https://github.com/titoutan/ChuckApi">ChuckApi</a> (ou https://chuckapi.alwaysdata.net/chuckapi/v2/)
+
+A pour projet de donner un classement aux phrases déjà ajoutées et dans le futur d'en ajouter aussi.
+
 ## Project setup
 ```
 npm install
