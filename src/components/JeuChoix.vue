@@ -24,11 +24,13 @@ export default {
   },
   computed: {
     stats() {
+      console.log(this.phrase1)
+      console.log(this.phrase2)
       switch (this.choix) {
         case 1:
-          return Math.round(this.phrase1.vote/(this.phrase1.vote+this.phrase2.vote)*100)
+          return Math.round(parseInt(this.phrase1.vote)/(parseInt(this.phrase1.vote)+parseInt(this.phrase2.vote))*100)
         case 2:
-          return Math.round(this.phrase2.vote/(this.phrase1.vote+this.phrase2.vote)*100)
+          return Math.round(parseInt(this.phrase2.vote)/(parseInt(this.phrase1.vote)+parseInt(this.phrase2.vote))*100)
       }
       return 0;
     }
@@ -42,6 +44,7 @@ export default {
     async fetch() {
       console.log('fetch')
       this.phrases = await (await fetch(url)).json()
+      console.log(this.phrases.data[0])
     },
     genererPhrase1() {
       do {
