@@ -1,8 +1,8 @@
 <template>
-  <h3>Choissez la phrase que vous préferrez</h3>
+  <h3>Choissez la phrase que vous préférez</h3>
   <div id="phrases">
-    <p class="phrase" ref="phrase1" @click="choisir(1)" :class="{choisi: choix===1, paschoisi: choix===2, jeu: choix===0, degage: degager1, inserer:inserer1}">{{ phrase1.phrase }} <span v-if="choix !== 0">({{ phrase1.vote==null? 0 : phrase1.vote }})</span></p>
-    <p class="phrase" ref="phrase2" @click="choisir(2)" :class="{choisi: choix===2, paschoisi: choix===1, jeu: choix===0, degage: degager2, inserer:inserer2}">{{ phrase2.phrase }} <span v-if="choix !== 0">({{ phrase2.vote==null? 0 : phrase2.vote }})</span></p>
+    <p class="phrase" ref="phrase1" @click="choisir(1)" :class="{choisi: choix===1, paschoisi: choix===2, jeu: choix===0, degage: degager1}">{{ phrase1.phrase }} <span v-if="choix !== 0">({{ phrase1.vote==null? 0 : phrase1.vote }})</span></p>
+    <p class="phrase" ref="phrase2" @click="choisir(2)" :class="{choisi: choix===2, paschoisi: choix===1, jeu: choix===0, degage: degager2}">{{ phrase2.phrase }} <span v-if="choix !== 0">({{ phrase2.vote==null? 0 : phrase2.vote }})</span></p>
   </div>
   <p v-if="choix !== 0"><span class="highlight">{{ stats }}%</span> des gens sont de votre avis !</p>
   <button @click="continuer()" v-if="choix !== 0">Continuer</button>
@@ -19,8 +19,6 @@ export default {
       phrase2: "",
       degager1: true,
       degager2: true,
-      inserer1: true,
-      inserer2: true,
       choix: 0
     }
   },
@@ -151,8 +149,5 @@ button {
 }
 .degage {
   transform: translateX(-150%);
-}
-.inserer {
-  transform: translateX(150%), translateX(-150%);
 }
 </style>  
