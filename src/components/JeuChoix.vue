@@ -9,7 +9,7 @@
 </template>
 
 <script>
-const url = "http://localhost/chuckapi/v2/"
+const url = "https://chuckapi.alwaysdata.net/chuckapi/v2/"
 export default {
   name: 'JeuChoix',
   data() {
