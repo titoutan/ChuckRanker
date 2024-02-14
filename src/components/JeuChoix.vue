@@ -49,7 +49,10 @@ export default {
     genererPhrase1() {
       do {
         this.phrase1 = this.phrases.data[Math.floor(Math.random() * this.phrases.data.length)];
-      } while(this.phrase1 === this.phrase2)
+      } while(this.phrase1.id === this.phrase2.id)
+      if (this.phrase1.vote == null) {
+        this.phrase1.vote = 0;
+      }
       this.degager1 = false
       this.inserer1 = true
 
@@ -57,12 +60,15 @@ export default {
     genererPhrase2() {
       do {
         this.phrase2 = this.phrases.data[Math.floor(Math.random() * this.phrases.data.length)];
-      } while(this.phrase1 === this.phrase2)
+      } while(this.phrase1.id === this.phrase2.id)
+      if (this.phrase2.vote == null) {
+        this.phrase2.vote = 0;
+      }
       this.degager2 = false
       this.inserer2 = true
     },
     async voter(phrase) {
-      phrase.vote = parseInt(phrase.vote==null? 0 : phrase.vote)+1;
+      phrase.vote += 1 ;
       const requestOptions = {
         method: "PATCH",
         headers: { 'Content-Type': 'application/json' }, 
