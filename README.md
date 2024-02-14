@@ -1,4 +1,4 @@
-# chuck-ranker
+# ChuckRanker
 
 ## Introduction
 
