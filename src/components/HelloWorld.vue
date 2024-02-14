@@ -16,23 +16,20 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 img {
-  width: 10%;
+  margin: 0 auto;
+  width: 8vh;
+  height: 8vh;
 }
 h1 {
-  font-size:3em
+  font-size:3em;
+  margin-top:0;
 }
 h2 {
   font-size:1.9em;
+  margin-top:0;
 }
 ul {
   list-style-type: none;
   padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
 }
 </style>

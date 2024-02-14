@@ -9,7 +9,8 @@
 </template>
 
 <script>
-const url = "https://chuckapi.alwaysdata.net/chuckapi/v2/"
+import Constants from '/src/config.js'
+const url = Constants.API_URL
 export default {
   name: 'JeuChoix',
   data() {
@@ -24,8 +25,6 @@ export default {
   },
   computed: {
     stats() {
-      console.log(this.phrase1)
-      console.log(this.phrase2)
       switch (this.choix) {
         case 1:
           return Math.round(parseInt(this.phrase1.vote)/(parseInt(this.phrase1.vote)+parseInt(this.phrase2.vote))*100)
@@ -42,9 +41,7 @@ export default {
   },
   methods: {
     async fetch() {
-      console.log('fetch')
       this.phrases = await (await fetch(url)).json()
-      console.log(this.phrases.data[0])
     },
     genererPhrase1() {
       do {
@@ -92,7 +89,6 @@ export default {
     },
     continuer() {
       document.getElementsByClassName("paschoisi")[0].classList.add("degage")
-      console.log(document.getElementsByClassName("paschoisi")[0])
       switch (this.choix) {
         case 1:
           setTimeout(this.genererPhrase2,
@@ -113,13 +109,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 h3 {
-  margin-top: 50px;
   font-size:2em;
+  margin-top:15px; 
 }
 #phrases {
-  margin: 20px auto;
+  margin: 0 auto;
   width: 50%;
 }
 .phrase {
@@ -148,13 +144,18 @@ h3 {
   font-weight: 700;
 }
 button {
+  transition: 0.35s;
   font-size: 1.9em;
   padding: 50px;
-  background-color:#43da96;
-  border:none;
+  border:2px solid #42b983;
+  background-color: unset;
   border-radius: 70px;
-  box-shadow: 4px 5px 5px black;
   cursor: pointer;
+  width:fit-content;
+  margin: 0 auto
+}
+button:hover {
+  box-shadow: inset 0 0 0 3em #42b983;
 }
 .degage {
   transform: translateX(-150%);
