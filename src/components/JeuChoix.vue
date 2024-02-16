@@ -1,5 +1,5 @@
 <template>
-  <h3>Choissez la phrase que vous préférez</h3>
+  <h2>Choissez la phrase que vous préférez</h2>
   <div id="phrases">
     <p class="phrase" ref="phrase1" @click="choisir(1)" :class="{choisi: choix===1, paschoisi: choix===2, jeu: choix===0, degage: degager1}">{{ phrase1.phrase }} <span v-if="choix !== 0">({{ phrase1.vote==null? 0 : phrase1.vote }})</span></p>
     <p class="phrase" ref="phrase2" @click="choisir(2)" :class="{choisi: choix===2, paschoisi: choix===1, jeu: choix===0, degage: degager2}">{{ phrase2.phrase }} <span v-if="choix !== 0">({{ phrase2.vote==null? 0 : phrase2.vote }})</span></p>
@@ -65,13 +65,11 @@ export default {
       this.inserer2 = true
     },
     async voter(phrase) {
-      phrase.vote += 1 ;
       const requestOptions = {
         method: "PATCH",
-        headers: { 'Content-Type': 'application/json' }, 
-        body: JSON.stringify(phrase)
+        headers: { 'Content-Type': 'application/json' }
       };
-      await fetch(`${url}${phrase.id}`,requestOptions);
+      await fetch(`${url}upvote/${phrase.id}`,requestOptions);
       await this.fetch();
     },
     choisir(n) {
@@ -110,44 +108,46 @@ export default {
 </script>
 
 <style scoped>
-h3 {
+h2 {
   font-size:2em;
-  margin-top:15px; 
+  margin-top:1em; 
 }
 #phrases {
   margin: 0 auto;
-  width: 50%;
 }
 .phrase {
-  border: 2px solid #42b983;
+  border: 2px solid var(--main-green);
   border-radius: 20px;
   padding: 30px;
-  font-size: 1.8em;
+  font-size: 1.2em;
   transition: all 0.3s;
   cursor: pointer;
   transition-duration: 300ms;
   transition-property: transform;
 }
 .jeu:hover {
-  background-color: #42b983;
+  background-color: var(--main-green);
   transform: translateY(-5px);
 }
 .paschoisi {
   border: 2px solid #498067;
 }
 .choisi {
-  background-color: #42b983;
-  border: 2px solid #42b983;
+  background-color: var(--main-green);
+  border: 2px solid var(--main-green);
+}
+.choisi span {
+  background-color: var(--main-green);
 }
 .highlight {
-  color: #42b983;
+  color: var(--main-green);
   font-weight: 700;
 }
 button {
   transition: 0.35s;
   font-size: 1.9em;
   padding: 50px;
-  border:2px solid #42b983;
+  border:2px solid var(--main-green);
   background-color: unset;
   border-radius: 70px;
   cursor: pointer;
@@ -155,9 +155,9 @@ button {
   margin: 0 auto
 }
 button:hover {
-  box-shadow: inset 0 0 0 3em #42b983;
+  box-shadow: inset 0 0 0 3em var(--main-green);
 }
 .degage {
-  transform: translateX(-150%);
+  transform: translateX(-100vw);
 }
 </style>  
