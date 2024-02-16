@@ -1,7 +1,7 @@
 <template>
   <h2>Le classement des phrases de Chuck Norris</h2>
-  <ul v-if="this.phrases.length > 0">
-    <li v-for="i of this.phrases" :key="i.id">
+  <ul v-if="this.phrases.length > 0"  class="slide-fade">
+    <li v-for="i of this.phrases" :key="i.id" :class="{show: this.show[this.phrases.findIndex((elt) => elt.id === i.id)]}">
       <div class="classement">
         <span class="rank">
           {{ this.phrases.findIndex((elt) => elt.id === i.id)+1 }}
@@ -27,13 +27,24 @@ export default {
   name: "ListePhrase",
   data() {
     return {
-      phrases: Array
+      phrases: Array,
+      show: Array
     }
   },
   methods: {
     async fetchData() {
       console.log(Constants.API_URL)
       this.phrases = (await (await fetch(Constants.API_URL)).json()).data.sort((a,b) => b.vote - a.vote)
+      this.show = Array(this.phrases.length)
+      console.log(this.show)
+      for (let i = 0; i<this.phrases.length; i++) {
+        setTimeout(
+          () => {
+            this.show.unshift(true)
+          },
+          50*i
+        )
+      }
     },
   signaler(id) {
     const requestOptions = {
@@ -66,6 +77,13 @@ li {
   align-items: center;
   padding: 10px;
   margin: 1.5em 0;
+}
+.slide-fade li {
+  transition: all 0.4s ease-out;
+  opacity: 0;
+}
+.slide-fade li.show {
+  opacity: 1;
 }
 .classement {
   flex: 1;
