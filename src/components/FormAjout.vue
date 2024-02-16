@@ -22,17 +22,21 @@ export default {
     toggleVisible() {
       this.visible = !this.visible
     },
-    async handleSubmit() {
-      console.log("submit")
-      const requestOptions = {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' }, 
-        body: JSON.stringify({"phrase":this.phrase})
-      };
-      fetch(`${Constants.API_URL}`,requestOptions);
-      this.toggleVisible()
-      this.phrase="";
-      alert("Votre phrase a été ajoutée")
+    handleSubmit() {
+      if (this.phrase == "" || this.phrase.split().length < 2) {
+        alert("veuillez écrire une phrase");
+      } 
+      else {
+        const requestOptions = {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json' }, 
+          body: JSON.stringify({"phrase":this.phrase})
+        };
+        fetch(`${Constants.API_URL}`,requestOptions);
+        this.toggleVisible()
+        this.phrase="";
+        alert("Votre phrase a été ajoutée")
+      }
     }
   }
 }

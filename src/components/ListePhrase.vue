@@ -8,14 +8,14 @@
         </span>
         <div class="like">
           <i class="fa-regular fa-thumbs-up"></i>
-          {{ i.vote }}
+          {{ i.vote == null ? 0 : i.vote }}
         </div>
       </div>
       <div class="corps">
         <p class="phrase">
           {{ i.phrase }}
         </p>
-        <i class="signalement fa-solid fa-flag fa-lg"></i>  
+        <i @click="signaler(i.id)" class="signalement fa-solid fa-flag fa-lg"></i>  
       </div>
     </li>
   </ul>
@@ -34,7 +34,15 @@ export default {
     async fetchData() {
       console.log(Constants.API_URL)
       this.phrases = (await (await fetch(Constants.API_URL)).json()).data.sort((a,b) => b.vote - a.vote)
-    }
+    },
+  signaler(id) {
+    const requestOptions = {
+      method: "PATCH",
+      headers: { 'Content-Type': 'application/json' }
+    };
+    fetch(`${Constants.API_URL}/report/${id}`,requestOptions);
+    alert("Votre phrase a été signalée")
+  }
   },
   async created() {
     this.fetchData()
