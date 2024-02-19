@@ -4,9 +4,16 @@
 
 Accessible: https://chuckranker.alwaysdata.net
 
-Un client pour l'api des phrases de chuckNorris <a href="https://github.com/titoutan/ChuckApi">ChuckApi</a> (ou https://chuckapi.alwaysdata.net/chuckapi/v2/)
+Un client pour l'api des phrases de chuckNorris <a href="https://github.com/titoutan/ChuckApi">ChuckApi</a>
 
-A pour projet de donner un classement aux phrases déjà ajoutées et dans le futur d'en ajouter aussi.
+Mini-Projet Fini (pour le moment)
+
+## US:
+
+* Liste des phrases poulaires ✅
+* Ajouter sa phrase ✅
+* Voter pour ses phrases préférées ✅
+* Signaler une phrase ✅
 
 ## Project setup
 ```
